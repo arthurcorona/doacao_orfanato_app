@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazer uma Doação - Rede ALSA</title>
+    <link rel="stylesheet" href="index.css"> <link rel="stylesheet" href="form.css"> </head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Rede ALSA</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Voltar ao Início</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h2>Formulário de Doação</h2>
+            <p>Sua contribuição transforma vidas. Selecione o tipo de doação abaixo.</p>
+
+            <form id="donation-form">
+                <div class="form-group donation-type">
+                    <label><input type="radio" name="tipo_doacao" value="dinheiro" checked> Dinheiro</label>
+                    <label><input type="radio" name="tipo_doacao" value="itens"> Alimentos ou itens</label>
+                </div>
+
+                <div id="info-dinheiro" class="donation-info active">
+                    <h3>Doação via PIX</h3>
+                    <p>Você pode usar o QR Code abaixo ou a nossa chave PIX.</p>
+                    <img src="./public/assets/qrcode-pix.png" alt="QR Code para doação PIX" class="qr-code">
+                    <p class="pix-key"><strong>Chave PIX (E-mail):</strong>contato@larsementedoamor.org.br</p>
+                    <p class="bank-key"><strong>Depósito Bancário</strong> Banestes Agência 0271 c/c 6.592.273</p>
+                </div>
+
+                <div id="info-outros" class="donation-info">
+                    <h3>Doação de Itens ou Alimentos</h3>
+                    <p>Ficamos muito felizes com sua intenção de doar! Para organizar o recebimento dos itens da melhor forma, por favor, entre em contato conosco.</p>
+                    <p class="contact-info"><strong>Telefone:</strong> (27) 3338-0880</p>
+                    <p class="contact-info"><strong>E-mail:</strong> contato@larsementedoamor.org.br</p>
+                </div>
+                <!--
+                <div class="form-group">
+                    <label for="nome">Seu Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="descricao">Descrição (Ex: Cesta básica, roupas de inverno, etc.):</label>
+                    <input type="text" id="descricao" name="descricao">
+                </div>
+                
+                <div class="form-group">
+                    <label for="valor">Valor Estimado (R$):</label>
+                    <input type="number" id="valor" name="valor" placeholder="Opcional">
+                </div>
+
+                <button type="submit" class="submit-button">Registrar Doação</button>
+            </form>
+            -->
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html> 
