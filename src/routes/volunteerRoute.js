@@ -1,16 +1,26 @@
-// src/routes/volunteerRoute.js (VERSÃO DE TESTE)
 
 const express = require('express');
-const router = express.Router();
+const router = express.Router(); // Usamos o Router do Express
+const db = require('../config/firebaseConfig');
 
-// Temporariamente, vamos remover a conexão com o Firebase (db)
-// const db = require('../config/firebaseConfig');
-
-// Rota POST simplificada que não usa o banco de dados
 router.post('/enviar-voluntario', async (req, res) => {
-  console.log('Formulário de voluntário recebido:', req.body);
-  // Apenas redireciona sem tentar salvar
-  res.send('Teste OK! Formulário recebido.');
+  try {
+    const { nome, email, mensagem } = req.body;
+    const novoVoluntario = {
+      nome,
+      email,
+      mensagem,
+      dataCriacao: new Date()
+    };
+
+    await db.collection('voluntarios').add(novoVoluntario);
+    console.log('Voluntário salvo com sucesso!');
+    res.redirect('/home');
+
+  } catch (error) {
+    console.error('Erro ao salvar voluntário:', error);
+    res.status(500).send('Ocorreu um erro ao registrar sua solicitação.');
+  }
 });
 
 module.exports = router;

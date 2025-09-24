@@ -1,15 +1,3 @@
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('ERRO GRAVE: Rejeição de Promise não tratada:', reason);
-  // Aplicações em produção devem fechar aqui, mas para depuração vamos apenas logar.
-});
-
-process.on('uncaughtException', (error) => {
-  console.error('ERRO GRAVE: Exceção não capturada:', error);
-  // É crucial fechar o processo após uma exceção não capturada.
-  process.exit(1);
-});
-// ============================================
-
 console.log('Iniciando o servidor...');
 
 const express = require('express');

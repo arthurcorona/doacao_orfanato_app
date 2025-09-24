@@ -4,19 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fazer uma Doação - Rede ALSA</title>
-    <link rel="stylesheet" href="index.css"> <link rel="stylesheet" href="form.css"> </head>
+        <link rel="stylesheet" href="/style/index.css">
 <body>
 
-    <header class="header">
-        <div class="container">
-            <h1 class="logo">Rede ALSA</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Voltar ao Início</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<%- include('./templates//nav.ejs')%>
 
     <main>
         <div class="form-container">
@@ -32,7 +23,7 @@
                 <div id="info-dinheiro" class="donation-info active">
                     <h3>Doação via PIX</h3>
                     <p>Você pode usar o QR Code abaixo ou a nossa chave PIX.</p>
-                    <img src="./public/assets/qrcode-pix.png" alt="QR Code para doação PIX" class="qr-code">
+                    <img src="./assets/qrcode-pix.png" alt="QR Code para doação PIX" class="qr-code">
                     <p class="pix-key"><strong>Chave PIX (E-mail):</strong>contato@larsementedoamor.org.br</p>
                     <p class="bank-key"><strong>Depósito Bancário</strong> Banestes Agência 0271 c/c 6.592.273</p>
                 </div>
