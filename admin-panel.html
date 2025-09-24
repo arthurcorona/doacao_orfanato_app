@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Inscrições de Voluntários</title>
+    <link rel="stylesheet" href="/style/admin.css"> 
+</head>
+<body>
+    <header>
+        <h1>Painel Administrativo</h1>
+        <p>Lista de inscrições para voluntariado.</p>
+    </header>
+    <main>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Mensagem</th>
+                        <th>Data da Inscrição</th>
+                    </tr>
+                </thead>
+                <tbody id="volunteers-table-body">
+                    <tr>
+                        <td colspan="5">A carregar dados dos voluntários...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script type="module" src="/script/firebase-client.js"></script>
+    <script type="module" src="/script/admin.js"></script>
+</body>
+</html>
+
+<!--lembrar de criar uma view somente de admin e fazer verificação se o user autenticado é admin. Lembrar de remover o script/css do admin do public-->

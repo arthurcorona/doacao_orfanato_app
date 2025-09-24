@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seja um Voluntário - Rede ALSA</title>
+    <link rel="stylesheet" href="/style/index.css"> 
+</head>
+
+<%- include('./templates//nav.ejs')%>
+
+<body>
+    <main>
+        <div class="form-container">
+            <h2>Formulário de Voluntariado</h2>
+            <p>Preencha com seus dados e entraremos em contato o mais breve possível. Sua ajuda é muito bem-vinda!</p>
+
+            <form id="volunteer-form">
+                <div class="form-group">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone (com DDD):</label>
+                    <input type="tel" id="telefone" name="telefone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Conte-nos como você gostaria de ajudar..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">Enviar Inscrição</button>
+            </form>
+            <p id="success-message" style="display:none; color: green; font-weight: bold;">Inscrição enviada com sucesso! Obrigado.</p>
+        </div>
+    </main>
+
+    <script type="module" src="/script/firebase-client.js"></script>
+    <script type="module" src="/script/volunteer.js"></script>
+</body>
+</html>

@@ -22,8 +22,8 @@ app.get("/donations", (req, res) => {
     res.render("donations")
 })
 
-app.get("/login", (req,res) => {
-    res.render("login")
+app.get("/volunteer", (req,res) => {
+    res.render("volunteer")
 })
 
 app.get("/account", (req, res) => {
