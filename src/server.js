@@ -26,9 +26,14 @@ app.get("/volunteer", (req,res) => {
     res.render("volunteer")
 })
 
+app.get("/admin", (req,res) => {
+    res.render("admin")
+})
+
 app.get("/account", (req, res) => {
     res.render("account")
 })
+
 
 app.use('/', volunteerRoutes); 
 

@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Voluntários</title>
     <link rel="stylesheet" href="/style/index.css">
     <link rel="stylesheet" href="/style/admin.css"> 
+    <title>Dashboard de Voluntários</title>
 </head>
 <body>
+
+    <%- include('./templates//nav.ejs')%>
+
     <header>
         <h1>Dashboard de Voluntários</h1>
         <div class="search-container">
@@ -24,6 +27,7 @@
                         <th>Telefone</th>
                         <th>Mensagem</th>
                         <th>Data da Inscrição</th>
+                        <th>Status</th> <th>Apagar</th>
                     </tr>
                 </thead>
                 <tbody id="volunteers-table-body">

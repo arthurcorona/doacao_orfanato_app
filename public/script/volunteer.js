@@ -25,7 +25,8 @@ form.addEventListener('submit', async (event) => {
             email: email,
             telefone: telefone,
             mensagem: mensagem,
-            data_inscricao: new Date() // Adiciona a data atual
+            data_inscricao: new Date(),
+            status: 'ativo'
         });
 
         console.log("Documento salvo com ID: ", docRef.id);
