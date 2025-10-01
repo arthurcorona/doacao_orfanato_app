@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Acólitos</title>
+    <link rel="stylesheet" href="/style/index.css">
+    <link rel="stylesheet" href="/style/admin.css">
+    <script type="module" src="/script/auth-guard.js"></script>
+</head>
+<body>
+ <%- include('./templates//nav.ejs')%>
+    <main>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data de Nascimento</th>
+                        <th>Escola / Série</th>
+                        <th>Contatos de Emergência</th>
+                        <th>Documentos</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="acolytes-table-body">
+                    </tbody>
+            </table>
+            <p id="no-results-message" style="display:none; text-align: center;">Nenhum acólito encontrado.</p>
+        </div>
+    </main>
+
+    <%- include('./templates//srcScripts.ejs')%> 
+</body>
+</html>

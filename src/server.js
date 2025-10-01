@@ -34,6 +34,10 @@ app.get("/acolito", (req,res) => {
     res.render("acolito-register")
 })
 
+app.get("/acolito-dashboard", (req,res) => {
+    res.render("acolito-dashboard")
+})
+
 app.get("/account", (req, res) => {
     res.render("account")
 })

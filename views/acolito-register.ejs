@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registar Novo Acólito</title>
+    <link rel="stylesheet" href="/style/index.css">
     <link rel="stylesheet" href="/style/form.css">
     <script type="module" src="/script/auth-guard.js"></script>
-
 </head>
 <body>
     <%- include('./templates//nav.ejs')%>
@@ -45,6 +45,8 @@
             <p id="feedback-message" style="display:none;"></p>
         </form>
     </div>
-     <%- include('./templates//srcScripts.ejs')%> 
+
+    <script type="module" src="/script/firebase-client.js"></script>
+    <script type="module" src="/script/acolito-registro.js"></script>
 </body>
 </html>

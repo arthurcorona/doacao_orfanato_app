@@ -24,3 +24,167 @@
 .delete-btn:hover {
     background-color: #c82333; 
 }
+
+/* --- Estilos Gerais e Tipografia --- */
+:root {
+    --primary-color: #0d2d62; /* Azul escuro principal */
+    --danger-color: #dc3545;  /* Vermelho para exclusão */
+    --danger-hover: #c82333; /* Vermelho escuro para hover */
+    --light-gray: #f8f9fa;   /* Fundo claro */
+    --medium-gray: #e9ecef;  /* Cor de borda/fundo alternativo */
+    --dark-gray: #343a40;    /* Cor de texto principal */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    line-height: 1.6;
+}
+
+main {
+    padding: 20px;
+}
+
+/* --- Header e Títulos --- */
+header {
+    background-color: white;
+    padding: 20px;
+    border-bottom: 1px solid var(--medium-gray);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.8em;
+}
+
+/* --- Container da Tabela --- */
+.table-container {
+    max-width: 1400px;
+    margin: 20px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow-x: auto; /* Adiciona scroll horizontal em telas pequenas */
+}
+
+/* --- Estilos da Tabela --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid var(--medium-gray);
+    text-align: left;
+    vertical-align: middle;
+}
+
+thead th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--light-gray);
+}
+
+tbody tr:hover {
+    background-color: var(--medium-gray);
+}
+
+td a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-right: 10px;
+}
+td a:hover {
+    text-decoration: underline;
+}
+
+/* --- Formulários (Busca e Select) --- */
+.search-container {
+    flex-grow: 1;
+    text-align: center;
+    padding: 0 20px;
+}
+
+#searchInput {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px; /* Deixa o campo de busca arredondado */
+    font-size: 1em;
+}
+
+.status-select {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/* --- Botões --- */
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.delete-btn:hover {
+    background-color: var(--danger-hover);
+}
+
+#logout-btn {
+    order: 3; /* Garante que o botão de logout fique no final em telas pequenas */
+}
+
+
+/* --- Responsividade para Telas Pequenas --- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header h1 {
+        margin-bottom: 15px;
+    }
+    
+    .search-container {
+        width: 100%;
+        padding: 10px 0;
+        order: 2;
+    }
+
+    #logout-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    th, td {
+        font-size: 0.9em;
+    }
+}
