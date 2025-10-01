@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 //routes
 app.get('/', (req, res) => {
-  res.render('home'); 
+  res.render('login'); 
 });
 
 app.get("/donations", (req, res) => {
@@ -23,11 +23,15 @@ app.get("/donations", (req, res) => {
 })
 
 app.get("/volunteer", (req,res) => {
-    res.render("volunteer")
+    res.render("volunteer-register")
 })
 
-app.get("/admin", (req,res) => {
-    res.render("admin")
+app.get("/volunteer-dashboard", (req,res) => {
+    res.render("volunter-dashboard")
+})
+
+app.get("/acolito", (req,res) => {
+    res.render("acolito-register")
 })
 
 app.get("/account", (req, res) => {

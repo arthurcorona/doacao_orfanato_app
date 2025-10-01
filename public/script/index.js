@@ -1,23 +1,23 @@
-//firebase
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+document.addEventListener('DOMContentLoaded', function() {
+    const donationTypeRadios = document.querySelectorAll('input[name="tipo_doacao"]');
+    const infoDinheiro = document.getElementById('info-dinheiro');
+    const infoOutros = document.getElementById('info-outros');
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyC1YmX8fs0EVWOMiFnSCCea_UCzY5kEuLY",
-  authDomain: "rede-alsa.firebaseapp.com",
-  projectId: "rede-alsa",
-  storageBucket: "rede-alsa.firebasestorage.app",
-  messagingSenderId: "973466018358",
-  appId: "1:973466018358:web:3df15cf7e09041e475ae97",
-  measurementId: "G-0J8N0NFR6W"
-};
+    function toggleDonationInfo() {
+        const selectedType = document.querySelector('input[name="tipo_doacao"]:checked').value;
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+        if (selectedType === 'dinheiro') {
+            infoDinheiro.classList.add('active');
+            infoOutros.classList.remove('active');
+        } else {
+            infoDinheiro.classList.remove('active');
+            infoOutros.classList.add('active');
+        }
+    }
 
+    donationTypeRadios.forEach(radio => {
+        radio.addEventListener('change', toggleDonationInfo);
+    });
+
+    toggleDonationInfo();
+});
