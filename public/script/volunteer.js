@@ -1,12 +1,11 @@
+console.log("começo");
+import { db } from './firebase-client.js';
 // Importa as funções necessárias do Firebase
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Pega o formulário e a mensagem de sucesso do HTML
 const form = document.getElementById('volunteer-form');
 const successMessage = document.getElementById('success-message');
-
-// Inicializa o Firestore
-const db = getFirestore();
 
 // Adiciona um "escutador" para o evento de envio do formulário
 form.addEventListener('submit', async (event) => {
@@ -40,3 +39,4 @@ form.addEventListener('submit', async (event) => {
         alert("Ocorreu um erro ao enviar sua inscrição. Tente novamente.");
     }
 });
+console.log("fim.");

@@ -1,13 +1,9 @@
+// Importa as funções usando a URL completa do CDN do Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-//firebase
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// A sua configuração pública do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC1YmX8fs0EVWOMiFnSCCea_UCzY5kEuLY",
   authDomain: "rede-alsa.firebaseapp.com",
@@ -18,8 +14,9 @@ const firebaseConfig = {
   measurementId: "G-0J8N0NFR6W"
 };
 
-// Initialize Firebase
+// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const auth = getAuth(app);
 
+// Exporta os serviços que você vai usar em outros scripts
+export const auth = getAuth(app);
+export const db = getFirestore(app); // Exporta a instância do Firestore
