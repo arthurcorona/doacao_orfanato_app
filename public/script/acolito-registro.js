@@ -1,74 +1,90 @@
-import { db } from './firebase-client.js';
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+import { db, collection, addDoc, serverTimestamp } from './firebase-client.js';
 
 const form = document.getElementById('acolyte-form');
 const submitBtn = document.getElementById('submit-btn');
 const feedbackMessage = document.getElementById('feedback-message');
 
-const storage = getStorage();
+/**
+ * Função auxiliar que converte um arquivo para uma string Base64.
+ * @param {File} file
+ * @returns {Promise<string|null>} 
+ */
+const converterParaBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        if (!file) {
+            resolve(null);
+            return;
+        }
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+    });
+};
 
-async function uploadFile(file, path) {
-    if (!file) return null;
-    const storageRef = ref(storage, path);
-    const snapshot = await uploadBytes(storageRef, file);
-    return await getDownloadURL(snapshot.ref);
-}
 
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
     submitBtn.disabled = true;
-    submitBtn.textContent = 'A processar...';
+    submitBtn.textContent = 'A registar...';
     feedbackMessage.style.display = 'none';
+    feedbackMessage.className = '';
 
     try {
-        const nome = document.getElementById('nome').value;
-        const nascimento = document.getElementById('nascimento').value;
+        const dadosPessoais = {
+            nome: document.getElementById('nome').value,
+            nascimento: document.getElementById('nascimento').value,
+            escola: document.getElementById('escola').value,
+            serie: document.getElementById('serie').value,
+        };
 
-        // 1. Fazer o upload dos ficheiros para o Firebase Storage
+        const historicoSaude = {
+            alergias: document.getElementById('alergias').value,
+            medicamentos: document.getElementById('medicamentos').value,
+            condicoes: document.getElementById('condicoes').value,
+        };
+
+        const contatosEmergencia = {
+            contato1_nome: document.getElementById('contato1_nome').value,
+            contato1_telefone: document.getElementById('contato1_telefone').value,
+        };
+
+        // --- Conversão dos arquivos para Base64 
         const fotoFile = document.getElementById('foto').files[0];
         const certidaoFile = document.getElementById('certidao').files[0];
         const docEscolarFile = document.getElementById('docEscolar').files[0];
-        
-        const fotoURL = await uploadFile(fotoFile, `acolitos/${nome}/foto_${fotoFile.name}`);
-        const certidaoURL = await uploadFile(certidaoFile, `acolitos/${nome}/certidao_${certidaoFile.name}`);
-        const docEscolarURL = await uploadFile(docEscolarFile, `acolitos/${nome}/docEscolar_${docEscolarFile.name}`);
 
-        // 2. Preparar o objeto de dados para o Firestore
+        const fotoBase64 = await converterParaBase64(fotoFile);
+        const certidaoBase64 = await converterParaBase64(certidaoFile);
+        const docEscolarBase64 = await converterParaBase64(docEscolarFile);
+
+        // objeto final salvo no firestore
         const acolyteData = {
-            nomeCompleto: nome,
-            dataNascimento: nascimento,
-            escola: document.getElementById('escola').value,
-            serie: document.getElementById('serie').value,
-            historicoSaude: {
-                alergias: document.getElementById('alergias').value,
-                medicamentos: document.getElementById('medicamentos').value,
-                condicoesMedicas: document.getElementById('condicoes').value,
-            },
-            contatosEmergencia: [{
-                nome: document.getElementById('contato1_nome').value,
-                telefone: document.getElementById('contato1_telefone').value,
-                parentesco: 'Não especificado'
-            }],
-            urlFotoIdentificacao: fotoURL,
-            urlCertidaoNascimento: certidaoURL,
-            urlDocumentoEscolar: docEscolarURL,
-            dataInclusao: new Date()
+            ...dadosPessoais,
+            ...historicoSaude,
+            ...contatosEmergencia,
+            fotoBase64,       
+            certidaoBase64,   
+            docEscolarBase64, 
+            registadoEm: serverTimestamp()
         };
 
-        // 3. Guardar os dados no Firestore
         await addDoc(collection(db, "acolitos"), acolyteData);
 
         feedbackMessage.textContent = 'Acólito registado com sucesso!';
-        feedbackMessage.style.color = 'green';
+        feedbackMessage.className = 'success';
+        feedbackMessage.style.display = 'block';
+        alert("Registrado com sucesso.")
         form.reset();
 
     } catch (error) {
         console.error("Erro ao registar acólito: ", error);
-        feedbackMessage.textContent = 'Erro ao registar. Tente novamente.';
-        feedbackMessage.style.color = 'red';
-    } finally {
+        alert("Erro ao registar acólito")
+        feedbackMessage.textContent = 'Ocorreu um erro ao registar. Tente novamente.';
+        feedbackMessage.className = 'error';
         feedbackMessage.style.display = 'block';
+    } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Registar Acólito';
     }

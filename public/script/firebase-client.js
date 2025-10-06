@@ -1,9 +1,10 @@
-// Importa as funções usando a URL completa do CDN do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// A sua configuração pública do Firebase
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyC1YmX8fs0EVWOMiFnSCCea_UCzY5kEuLY",
   authDomain: "rede-alsa.firebaseapp.com",
@@ -14,9 +15,15 @@ const firebaseConfig = {
   measurementId: "G-0J8N0NFR6W"
 };
 
-// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 
-// Exporta os serviços que você vai usar em outros scripts
-export const auth = getAuth(app);
-export const db = getFirestore(app); // Exporta a instância do Firestore
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { 
+  db, 
+  auth, 
+  collection, 
+  addDoc, 
+  serverTimestamp 
+};

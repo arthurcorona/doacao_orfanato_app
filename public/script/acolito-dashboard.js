@@ -19,23 +19,23 @@ function renderTable(data) {
     data.forEach(acolyte => {
         const acolyteData = acolyte.data;
 
-        const contatos = acolyteData.contatosEmergencia.map(c => `${c.nome}: ${c.telefone}`).join('<br>');
+        const contatos = `${acolyteData.contato1_nome}: ${acolyteData.contato1_telefone}`;
 
         const documentosLinks = `
-            ${acolyteData.urlFotoIdentificacao ? `<a href="${acolyteData.urlFotoIdentificacao}" target="_blank">Foto</a>` : ''}
-            ${acolyteData.urlCertidaoNascimento ? `<a href="${acolyteData.urlCertidaoNascimento}" target="_blank">Certidão</a>` : ''}
-            ${acolyteData.urlDocumentoEscolar ? `<a href="${acolyteData.urlDocumentoEscolar}" target="_blank">Escolar</a>` : ''}
+            ${acolyteData.fotoBase64 ? `<a href="${acolyteData.fotoBase64}" target="_blank">Ver Foto</a>` : 'N/A'} <br>
+            ${acolyteData.certidaoBase64 ? `<a href="${acolyteData.certidaoBase64}" download="certidao_${acolyteData.nome}.pdf">Baixar Certidão</a>` : 'N/A'} <br>
+            ${acolyteData.docEscolarBase64 ? `<a href="${acolyteData.docEscolarBase64}" target="_blank">Ver Doc. Escolar</a>` : 'N/A'}
         `;
 
         const row = `
             <tr>
-                <td>${acolyteData.nomeCompleto}</td>
-                <td>${acolyteData.dataNascimento}</td>
+                <td>${acolyteData.nome}</td>
+                <td>${new Date(acolyteData.nascimento).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}</td>
                 <td>${acolyteData.escola} - ${acolyteData.serie}</td>
                 <td>${contatos}</td>
                 <td>${documentosLinks}</td>
                 <td>
-                    <button class="delete-btn" data-id="${acolyte.id}" data-name="${acolyteData.nomeCompleto}">Excluir</button>
+                    <button class="delete-btn" data-id="${acolyte.id}" data-name="${acolyteData.nome}">Excluir</button>
                 </td>
             </tr>
         `;
@@ -45,7 +45,7 @@ function renderTable(data) {
 
 async function fetchAllAcolytes() {
     try {
-        const q = query(collection(db, "acolitos"), orderBy("nomeCompleto"));
+        const q = query(collection(db, "acolitos"), orderBy("nome"));
         const querySnapshot = await getDocs(q);
         
         allAcolytes = querySnapshot.docs.map(doc => ({ id: doc.id, data: doc.data() }));
@@ -61,7 +61,7 @@ async function fetchAllAcolytes() {
 searchInput.addEventListener('input', (event) => {
     const searchTerm = event.target.value.toLowerCase();
     const filteredAcolytes = allAcolytes.filter(acolyte => 
-        acolyte.data.nomeCompleto.toLowerCase().includes(searchTerm)
+        acolyte.data.nome.toLowerCase().includes(searchTerm)
     );
     renderTable(filteredAcolytes);
 });
@@ -74,9 +74,7 @@ tableBody.addEventListener('click', async (event) => {
         if (confirm(`Tem a certeza de que deseja excluir o registo de "${acolyteName}"? Esta ação não pode ser desfeita.`)) {
             try {
                 await deleteDoc(doc(db, "acolitos", docId));
-                
                 fetchAllAcolytes();
-                
             } catch (error) {
                 console.error("Erro ao excluir documento: ", error);
                 alert("Ocorreu um erro ao excluir o registo.");

@@ -10,17 +10,28 @@
 </head>
 <body>
  <%- include('./templates//nav.ejs')%>
+
+ <div class="header-container">
+            <h2>Dashboard de Acólitos</h2>
+            <input type="search" id="searchInput" placeholder="Pesquisar por nome...">
+        </div>
+        <div class="table-container">
+            <table>
+                </table>
+            <p id="no-results-message" style="display:none; text-align: center;">Nenhum acólito encontrado.</p>
+        </div>
+
     <main>
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Data de Nascimento</th>
-                        <th>Escola / Série</th>
-                        <th>Contatos de Emergência</th>
-                        <th>Documentos</th>
-                        <th>Ações</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Data de Nascimento</th>
+                        <th scope="col">Escola / Série</th>
+                        <th scope="col">Contatos de Emergência</th>
+                        <th scope="col">Documentos</th>
+                        <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody id="acolytes-table-body">
