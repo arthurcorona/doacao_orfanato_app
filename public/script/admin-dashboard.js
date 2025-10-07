@@ -48,7 +48,6 @@ function renderTable(data) {
     });
 }
 
-// Função para buscar todos os voluntários do Firebase
 async function fetchAllVolunteers() {
     try {
         const q = query(collection(db, "voluntarios"), orderBy("data_inscricao", "desc"));
@@ -64,22 +63,19 @@ async function fetchAllVolunteers() {
     }
 }
 
-// Lógica de busca
 searchInput.addEventListener('input', (event) => {
     const searchTerm = event.target.value.toLowerCase();
     const filteredVolunteers = allVolunteers.filter(v => v.data.nome.toLowerCase().includes(searchTerm));
     renderTable(filteredVolunteers);
 });
 
-// Lógica para AÇÕES NA TABELA (Excluir e Mudar Status)
 tableBody.addEventListener('click', async (event) => {
-    // Se o clique foi num botão de excluir
     if (event.target.classList.contains('delete-btn')) {
         const docId = event.target.dataset.id;
         if (confirm("Tem a certeza de que deseja excluir esta inscrição?")) {
             try {
                 await deleteDoc(doc(db, "voluntarios", docId));
-                fetchAllVolunteers(); // Recarrega os dados para atualizar a tabela
+                fetchAllVolunteers();
             } catch (error) {
                 console.error("Erro ao excluir documento: ", error);
             }
@@ -88,7 +84,6 @@ tableBody.addEventListener('click', async (event) => {
 });
 
 tableBody.addEventListener('change', async (event) => {
-    // Se a mudança foi numa caixa de seleção de status
     if (event.target.classList.contains('status-select')) {
         const selectElement = event.target;
         const docId = selectElement.dataset.id;

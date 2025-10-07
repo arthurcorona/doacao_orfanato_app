@@ -18,13 +18,12 @@ function renderTable(data) {
 
     data.forEach(acolyte => {
         const acolyteData = acolyte.data;
-
         const contatos = `${acolyteData.contato1_nome}: ${acolyteData.contato1_telefone}`;
 
         const documentosLinks = `
-            ${acolyteData.fotoBase64 ? `<a href="${acolyteData.fotoBase64}" target="_blank">Ver Foto</a>` : 'N/A'} <br>
+            ${acolyteData.fotoBase64 ? `<a href="#" class="view-file-btn" data-base64="${acolyteData.fotoBase64}">Ver Foto</a>` : 'N/A'} <br>
             ${acolyteData.certidaoBase64 ? `<a href="${acolyteData.certidaoBase64}" download="certidao_${acolyteData.nome}.pdf">Baixar Certidão</a>` : 'N/A'} <br>
-            ${acolyteData.docEscolarBase64 ? `<a href="${acolyteData.docEscolarBase64}" target="_blank">Ver Doc. Escolar</a>` : 'N/A'}
+            ${acolyteData.docEscolarBase64 ? `<a href="#" class="view-file-btn" data-base64="${acolyteData.docEscolarBase64}">Ver Doc. Escolar</a>` : 'N/A'}
         `;
 
         const row = `
@@ -47,11 +46,8 @@ async function fetchAllAcolytes() {
     try {
         const q = query(collection(db, "acolitos"), orderBy("nome"));
         const querySnapshot = await getDocs(q);
-        
         allAcolytes = querySnapshot.docs.map(doc => ({ id: doc.id, data: doc.data() }));
-        
         renderTable(allAcolytes);
-
     } catch (error) {
         console.error("Erro ao buscar acólitos: ", error);
         tableBody.innerHTML = '<tr><td colspan="6">Ocorreu um erro ao carregar os dados.</td></tr>';
@@ -66,12 +62,15 @@ searchInput.addEventListener('input', (event) => {
     renderTable(filteredAcolytes);
 });
 
+
 tableBody.addEventListener('click', async (event) => {
-    if (event.target.classList.contains('delete-btn')) {
-        const docId = event.target.dataset.id;
-        const acolyteName = event.target.dataset.name;
+    const target = event.target;
+
+    if (target.classList.contains('delete-btn')) {
+        const docId = target.dataset.id;
+        const acolyteName = target.dataset.name;
         
-        if (confirm(`Tem a certeza de que deseja excluir o registo de "${acolyteName}"? Esta ação não pode ser desfeita.`)) {
+        if (confirm(`Tem a certeza de que deseja excluir o registo de "${acolyteName}"?`)) {
             try {
                 await deleteDoc(doc(db, "acolitos", docId));
                 fetchAllAcolytes();
@@ -81,6 +80,21 @@ tableBody.addEventListener('click', async (event) => {
             }
         }
     }
+
+    if (target.classList.contains('view-file-btn')) {
+        event.preventDefault();
+        
+        const base64String = target.dataset.base64;
+        
+        // Converte a string Base64 para um Blob
+        const res = await fetch(base64String);
+        const blob = await res.blob();
+        
+        const blobUrl = URL.createObjectURL(blob);
+        
+        window.open(blobUrl, '_blank');
+    }
 });
+
 
 fetchAllAcolytes();

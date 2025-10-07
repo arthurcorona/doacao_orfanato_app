@@ -11,15 +11,15 @@
 <body>
  <%- include('./templates//nav.ejs')%>
 
- <div class="header-container">
+        <header class="header-container">
             <h2>Dashboard de Acólitos</h2>
             <input type="search" id="searchInput" placeholder="Pesquisar por nome...">
-        </div>
-        <div class="table-container">
+        </header>
+        <!--<div class="table-container">
             <table>
-                </table>
+            </table>
             <p id="no-results-message" style="display:none; text-align: center;">Nenhum acólito encontrado.</p>
-        </div>
+        </div>-->
 
     <main>
         <div class="table-container">
@@ -41,6 +41,9 @@
         </div>
     </main>
 
-    <%- include('./templates//srcScripts.ejs')%> 
+    <script type="module" src="/script/firebase-client.js"></script>
+    <script type="module" src="/script/acolito-dashboard.js"></script>
+</body>
+</html>
 </body>
 </html>
