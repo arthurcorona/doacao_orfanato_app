@@ -1,15 +1,12 @@
-// Importa as funções necessárias, incluindo doc, deleteDoc e updateDoc
 import { db } from './firebase-client.js';
 import { collection, getDocs, query, orderBy, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Pega os elementos do HTML
 const tableBody = document.getElementById('volunteers-table-body');
 const searchInput = document.getElementById('searchInput');
 const noResultsMessage = document.getElementById('no-results-message');
 
-let allVolunteers = []; // Array para guardar todos os voluntários
+let allVolunteers = [];
 
-// Função para renderizar os dados na tabela
 function renderTable(data) {
     tableBody.innerHTML = '';
     noResultsMessage.style.display = 'none';
@@ -64,6 +61,7 @@ async function fetchAllVolunteers() {
 }
 
 searchInput.addEventListener('input', (event) => {
+    console.log("Digitando! Valor atual:", event.target.value);
     const searchTerm = event.target.value.toLowerCase();
     const filteredVolunteers = allVolunteers.filter(v => v.data.nome.toLowerCase().includes(searchTerm));
     renderTable(filteredVolunteers);
@@ -89,38 +87,30 @@ tableBody.addEventListener('change', async (event) => {
         const docId = selectElement.dataset.id;
         const newStatus = selectElement.value;
 
-        // Encontra os dados do voluntário no nosso array local para obter o nome e o status original
         const volunteer = allVolunteers.find(v => v.id === docId);
-        if (!volunteer) return; // Sai se o voluntário não for encontrado
+        if (!volunteer) return;
 
         const volunteerName = volunteer.data.nome;
         const originalStatus = volunteer.data.status;
 
-        // Cria a mensagem de confirmação personalizada
         const confirmationMessage = `Tem a certeza de que deseja alterar o status de "${volunteerName}" para "${newStatus}"?`;
 
-        // Pede a confirmação ao administrador
         if (confirm(confirmationMessage)) {
-            // Se confirmado, atualiza o Firebase
             try {
                 const volunteerRef = doc(db, "voluntarios", docId);
                 await updateDoc(volunteerRef, {
                     status: newStatus
                 });
-                // Atualiza também o status no nosso array local
                 volunteer.data.status = newStatus;
             } catch (error) {
                 console.error("Erro ao atualizar status: ", error);
-                // Se der erro, reverte a mudança na tela
                 selectElement.value = originalStatus;
             }
         } else {
-            // Se cancelado, reverte a mudança na tela
             selectElement.value = originalStatus;
         }
     }
 });
 
 
-// Carrega os voluntários ao iniciar a página
 fetchAllVolunteers();
