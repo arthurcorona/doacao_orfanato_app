@@ -1,11 +1,12 @@
+// server.js (Versão Corrigida)
+
 console.log('Iniciando o servidor...');
 
 const express = require('express');
 const path = require('path');
-const volunteerRoutes = require('./routes/volunteerRoute'); 
 
 const app = express();
-const port = 8888;
+const port = 8889;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
@@ -23,11 +24,11 @@ app.get("/donations", (req, res) => {
 })
 
 app.get("/volunteer", (req,res) => {
-    res.render("volunteer-register")
+    res.render("volunteer-register") 
 })
 
 app.get("/volunteer-dashboard", (req,res) => {
-    res.render("volunter-dashboard")
+    res.render("volunteer-dashboard")
 })
 
 app.get("/acolito", (req,res) => {
@@ -41,9 +42,6 @@ app.get("/acolito-dashboard", (req,res) => {
 app.get("/account", (req, res) => {
     res.render("account")
 })
-
-
-app.use('/', volunteerRoutes); 
 
 
 app.listen(port, () => {

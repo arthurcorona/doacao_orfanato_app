@@ -285,3 +285,42 @@ nav ul li a:hover {
         display: block; /* Faz o link ocupar toda a largura do <li> */
     }
 }
+
+/* Adicione isto ao seu arquivo /style/index.css ou style/admin.css */
+
+/* Estilo para a nota no topo do formulário */
+.required-note {
+    font-size: 0.9em;
+    color: #d9534f; /* Um tom de vermelho */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Adiciona o asterisco vermelho após o texto do label */
+label.required::after {
+    content: ' *';
+    color: #d9534f; /* Vermelho */
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+/* no seu style/index.css */
+.secondary-button {
+    background-color: #f4f4f4;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.secondary-button:hover {
+    background-color: #e9e9e9;
+}
+
+/* Opcional: Adiciona um espaço entre os grupos de referência */
+.referencia-group {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+}

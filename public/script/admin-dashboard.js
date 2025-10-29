@@ -61,7 +61,6 @@ async function fetchAllVolunteers() {
 }
 
 searchInput.addEventListener('input', (event) => {
-    console.log("Digitando! Valor atual:", event.target.value);
     const searchTerm = event.target.value.toLowerCase();
     const filteredVolunteers = allVolunteers.filter(v => v.data.nome.toLowerCase().includes(searchTerm));
     renderTable(filteredVolunteers);

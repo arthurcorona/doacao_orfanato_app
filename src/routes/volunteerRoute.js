@@ -1,6 +1,6 @@
-
+/**  
 const express = require('express');
-const router = express.Router(); // Usamos o Router do Express
+const router = express.Router();  
 const db = require('../config/firebaseConfig');
 
 router.post('/enviar-voluntario', async (req, res) => {
@@ -24,3 +24,4 @@ router.post('/enviar-voluntario', async (req, res) => {
 });
 
 module.exports = router;
+*/
