@@ -5,19 +5,80 @@ const form = document.getElementById('volunteer-form');
 const successMessage = document.getElementById('success-message');
 const submitButton = form.querySelector('button[type="submit"]');
 
-// --- Bloco do Botão de Adicionar Referência ---
 const addRefButton = document.getElementById('add-referencia-btn');
 const referenciasContainer = document.getElementById('referencias-container');
-let referenciaCount = 1; // Já temos a Referência 1 na página
+let referenciaCount = 1;
+
+function validarDataNascimento() {
+    const inputData = document.getElementById('data_nascimento');
+    const valorData = inputData.value;
+    
+    let errorMsg = document.getElementById('data-nascimento-error');
+    if (!errorMsg) {
+        errorMsg = document.createElement('div');
+        errorMsg.id = 'data-nascimento-error';
+        errorMsg.className = 'error-message';
+        inputData.parentNode.insertBefore(errorMsg, inputData.nextSibling);
+    }
+
+    if (!valorData) {
+        errorMsg.textContent = '';
+        return true; 
+    }
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0); 
+
+    const partes = valorData.split('-'); 
+
+    if (partes.length !== 3) {
+        errorMsg.textContent = 'Formato de data inválido.';
+        return false;
+    }
+
+    const ano = parseInt(partes[0], 10);
+    const mes = parseInt(partes[1], 10);
+    const dia = parseInt(partes[2], 10);
+
+    const dataNascimento = new Date(ano, mes - 1, dia);
+    dataNascimento.setHours(0, 0, 0, 0); 
+
+    if (dataNascimento.getFullYear() !== ano || 
+        dataNascimento.getMonth() !== (mes - 1) || 
+        dataNascimento.getDate() !== dia) {
+        
+        errorMsg.textContent = 'Data inválida. Verifique o dia e o mês.';
+        return false;
+    }
+
+    if (dataNascimento > hoje) {
+        errorMsg.textContent = 'A data de nascimento não pode ser uma data futura.';
+        return false;
+    }
+
+    const dataLimite16Anos = new Date(hoje.getTime());
+    dataLimite16Anos.setFullYear(hoje.getFullYear() - 16);
+
+    if (dataNascimento > dataLimite16Anos) {
+        errorMsg.textContent = 'Você deve ter pelo menos 16 anos para ser voluntário.';
+        return false;
+    }
+
+    errorMsg.textContent = '';
+    return true;
+}
+
+const inputDataNascimento = document.getElementById('data_nascimento');
+if (inputDataNascimento) {
+    inputDataNascimento.addEventListener('change', validarDataNascimento);
+}
 
 addRefButton.addEventListener('click', () => {
-    referenciaCount++; // Incrementa o contador
+    referenciaCount++;
 
-    // Cria um novo 'div' para o grupo de campos
     const newRefGroup = document.createElement('div');
     newRefGroup.classList.add('referencia-group', 'form-group');
 
-    // Define o HTML interno do novo 'div'
     newRefGroup.innerHTML = `
         <label for="ref${referenciaCount}_nome">Referência ${referenciaCount}: Nome</label>
         <input type="text" id="ref${referenciaCount}_nome" name="ref_nome"> 
@@ -26,12 +87,10 @@ addRefButton.addEventListener('click', () => {
         <input type="tel" id="ref${referenciaCount}_telefone" name="ref_telefone" placeholder="(XX) XXXXX-XXXX">
     `;
 
-    // Adiciona o novo grupo de campos ao container
     referenciasContainer.appendChild(newRefGroup);
 });
 
 
-// --- Bloco de Envio do Formulário (MODIFICADO) ---
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 

@@ -12,7 +12,7 @@
 }
 
 .delete-btn {
-    background-color: #dc3545; /* Vermelho */
+    background-color: #dc3545;
     color: white;
     border: none;
     padding: 8px 12px;
@@ -25,14 +25,13 @@
     background-color: #c82333; 
 }
 
-/* --- Estilos Gerais e Tipografia --- */
 :root {
-    --primary-color: #0d2d62; /* Azul escuro principal */
-    --danger-color: #dc3545;  /* Vermelho para exclusão */
-    --danger-hover: #c82333; /* Vermelho escuro para hover */
-    --light-gray: #f8f9fa;   /* Fundo claro */
-    --medium-gray: #e9ecef;  /* Cor de borda/fundo alternativo */
-    --dark-gray: #343a40;    /* Cor de texto principal */
+    --primary-color: #0d2d62;
+    --danger-color: #dc3545;
+    --danger-hover: #c82333; 
+    --light-gray: #f8f9fa; 
+    --medium-gray: #e9ecef; 
+    --dark-gray: #343a40;   
 }
 
 body {
@@ -47,7 +46,6 @@ main {
     padding: 20px;
 }
 
-/* --- Header e Títulos --- */
 header {
     background-color: white;
     padding: 20px;
@@ -65,7 +63,6 @@ header h1 {
     font-size: 1.8em;
 }
 
-/* --- Container da Tabela --- */
 .table-container {
     max-width: 1400px;
     margin: 20px auto;
@@ -73,10 +70,9 @@ header h1 {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    overflow-x: auto; /* Adiciona scroll horizontal em telas pequenas */
+    overflow-x: auto;
 }
 
-/* --- Estilos da Tabela --- */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -116,7 +112,6 @@ td a:hover {
     text-decoration: underline;
 }
 
-/* --- Formulários (Busca e Select) --- */
 .search-container {
     flex-grow: 1;
     text-align: center;
@@ -128,7 +123,7 @@ td a:hover {
     max-width: 500px;
     padding: 12px 15px;
     border: 1px solid #ccc;
-    border-radius: 25px; /* Deixa o campo de busca arredondado */
+    border-radius: 25px; 
     font-size: 1em;
 }
 
@@ -140,7 +135,6 @@ td a:hover {
     cursor: pointer;
 }
 
-/* --- Botões --- */
 .delete-btn {
     background-color: var(--danger-color);
     color: white;
@@ -157,11 +151,10 @@ td a:hover {
 }
 
 #logout-btn {
-    order: 3; /* Garante que o botão de logout fique no final em telas pequenas */
+    order: 3; 
 }
 
 
-/* --- Responsividade para Telas Pequenas --- */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -187,4 +180,53 @@ td a:hover {
     th, td {
         font-size: 0.9em;
     }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; 
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.modal-close-btn {
+    color: #aaa;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #000;
+}
+
+.referencias-list p {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+.referencias-list p strong {
+    color: #333;
 }
