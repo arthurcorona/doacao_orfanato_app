@@ -1,0 +1,13 @@
+
+/node_modules
+
+firebase-key.json
+
+.env
+
+npm-debug.log
+.DS_Store
+
+*.json
+!package.json
+!package-lock.jso

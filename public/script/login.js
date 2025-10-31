@@ -12,7 +12,7 @@ loginForm.addEventListener('submit', (event) => {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log('Login bem-sucedido:', userCredential.user);
-            window.location.href = '/acolito';
+            window.location.href = '/volunteer-dashboard';
         })
         .catch((error) => {
             console.error('Erro no login:', error.code);

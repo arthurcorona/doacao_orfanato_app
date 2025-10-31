@@ -4,17 +4,22 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebas
 
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC1YmX8fs0EVWOMiFnSCCea_UCzY5kEuLY",
-  authDomain: "rede-alsa.firebaseapp.com",
-  projectId: "rede-alsa",
-  storageBucket: "rede-alsa.firebasestorage.app",
-  messagingSenderId: "973466018358",
-  appId: "1:973466018358:web:3df15cf7e09041e475ae97",
-  measurementId: "G-0J8N0NFR6W"
+  apiKey: "AIzaSyByPdb9DKrsRFDrFAIG5ltezz6uHrIgt1Q",
+  authDomain: "rede-alsa-2ff28.firebaseapp.com",
+  projectId: "rede-alsa-2ff28",
+  storageBucket: "rede-alsa-2ff28.firebasestorage.app",
+  messagingSenderId: "359054712531",
+  appId: "1:359054712531:web:a744f228359b2295723e26",
+  measurementId: "G-WVWG9XYQVZ"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);

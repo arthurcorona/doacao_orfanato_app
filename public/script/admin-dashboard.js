@@ -1,6 +1,3 @@
-console.log("js carregado");
-
-
 import { db } from './firebase-client.js';
 import { 
     collection, 
@@ -35,22 +32,18 @@ function renderTable(data) {
 
     data.forEach(volunteer => {
         const volunteerData = volunteer.data;
-        
-        // Formata a data de inscrição
+
         const formattedDate = volunteerData.data_inscricao?.toDate().toLocaleDateString('pt-BR', {
             day: '2-digit', month: '2-digit', year: 'numeric'
         }) || 'N/A';
 
-        // --- NOVO CÓDIGO ---
-        // Formata a data de nascimento (que está como 'YYYY-MM-DD')
         let dataNasc = 'N/A';
         if (volunteerData.data_nascimento) {
             const partes = volunteerData.data_nascimento.split('-');
             if (partes.length === 3) {
-                dataNasc = `${partes[2]}/${partes[1]}/${partes[0]}`; // Formata para DD/MM/YYYY
+                dataNasc = `${partes[2]}/${partes[1]}/${partes[0]}`;
             }
         }
-        // --- FIM DO NOVO CÓDIGO ---
 
         const row = `
             <tr>
@@ -79,8 +72,28 @@ async function fetchAllVolunteers() {
     try {
         const q = query(collection(db, "voluntarios"), orderBy("data_inscricao", "desc"));
         const querySnapshot = await getDocs(q);
-        
+
         allVolunteers = querySnapshot.docs.map(doc => ({ id: doc.id, data: doc.data() }));
+
+        const statusPriority = {
+            "pendente": 1,
+            "ativo": 2,
+            "inativo": 3
+        };
+
+        allVolunteers.sort((a, b) => {
+            const priorityA = statusPriority[a.data.status] || 99;
+            const priorityB = statusPriority[b.data.status] || 99;
+
+            if (priorityA !== priorityB) {
+                return priorityA - priorityB; //1, 2 e 3
+            }
+
+            const dateA = a.data.data_inscricao?.toDate() || 0;
+            const dateB = b.data.data_inscricao?.toDate() || 0;
+            
+            return dateB - dateA; // b - a = mais novo primeiro
+        });
         
         renderTable(allVolunteers);
 
@@ -151,29 +164,28 @@ tableBody.addEventListener('change', async (event) => {
                 const volunteerRef = doc(db, "voluntarios", docId);
                 await updateDoc(volunteerRef, { status: newStatus });
                 
-                // Atualiza o cache local
+                // Atualiza o cache
                 const volunteerInCache = allVolunteers.find(v => v.id === docId);
                 if (volunteerInCache) volunteerInCache.data.status = newStatus;
                 
             } catch (error) {
                 console.error("Erro ao atualizar status: ", error);
                 alert("Erro ao atualizar status.");
-                selectElement.value = allVolunteers.find(v => v.id === docId).data.status; // Reverte
+                selectElement.value = allVolunteers.find(v => v.id === docId).data.status;
             }
         } else {
-            selectElement.value = allVolunteers.find(v => v.id === docId).data.status; // Reverte
+            selectElement.value = allVolunteers.find(v => v.id === docId).data.status;
         }
     }
 });
-
+//excluir voluntário
 tableBody.addEventListener('click', async (event) => {
-    // Lógica para EXCLUIR
     if (event.target.classList.contains('delete-btn')) {
         const docId = event.target.dataset.id;
         if (confirm("Tem certeza de que deseja EXCLUIR este voluntário? Esta ação não pode ser desfeita.")) {
             try {
                 await deleteDoc(doc(db, "voluntarios", docId));
-                fetchAllVolunteers(); // Recarrega a tabela
+                fetchAllVolunteers();
             } catch (error) {
                 console.error("Erro ao excluir documento: ", error);
                 alert("Erro ao excluir voluntário.");
@@ -181,7 +193,7 @@ tableBody.addEventListener('click', async (event) => {
         }
     }
 
-    // Lógica para ABRIR MODAL
+    // abrir/ver infos
     if (event.target.classList.contains('view-btn')) {
         const docId = event.target.dataset.id;
         const volunteer = allVolunteers.find(v => v.id === docId);
@@ -191,17 +203,17 @@ tableBody.addEventListener('click', async (event) => {
     }
 });
 
-// Listener para fechar o modal (no 'X')
+
 modalCloseBtn.addEventListener('click', closeEditModal);
 
-// Listener para fechar o modal (clicando fora)
+// fechar clicando fora da caixa
 window.addEventListener('click', (event) => {
     if (event.target == modal) {
         closeEditModal();
     }
 });
 
-// Listener para SALVAR o formulário do modal
+// salvar form editado
 editForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const docId = editFormId.value;
@@ -226,7 +238,6 @@ editForm.addEventListener('submit', async (event) => {
             horarios_disponiveis: editForm.horarios_disponiveis.value,
             motivacao: editForm.motivacao.value,
             ganhos_pessoais: editForm.ganhos_pessoais.value,
-            // Nota: As referências não são editáveis neste formulário
         };
 
         const volunteerRef = doc(db, "voluntarios", docId);
@@ -234,7 +245,7 @@ editForm.addEventListener('submit', async (event) => {
 
         alert("Voluntário atualizado com sucesso!");
         closeEditModal();
-        fetchAllVolunteers(); // Recarrega a tabela
+        fetchAllVolunteers();
 
     } catch (error) {
         console.error("Erro ao salvar alterações: ", error);
