@@ -3,9 +3,9 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/f
 
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        if (window.location.pathname !== '/login') {
+        if (window.location.pathname !== '/login.html') {
             console.log('Auth Guard: Usuário não autenticado. Redirecionando...');
-            window.location.href = '/login';
+            window.location.href = '/login.html';
         }
     }
 });

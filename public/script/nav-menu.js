@@ -7,9 +7,7 @@ if (logoutButton) {
     logoutButton.addEventListener('click', () => {
         signOut(auth).then(() => {
             console.log('Logout efetuado com sucesso. Redirecionando...');
-            
-            window.location.href = '/login';
-
+            window.location.href = '/login.html';
         }).catch((error) => {
             console.error('Erro ao fazer logout:', error);
         });

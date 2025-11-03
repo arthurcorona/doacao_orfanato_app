@@ -250,7 +250,15 @@ editForm.addEventListener('submit', async (event) => {
     } catch (error) {
         console.error("Erro ao salvar alterações: ", error);
         alert("Ocorreu um erro ao salvar. Tente novamente.");
-    } finally {
+        if(error.code === 'permission-denied') {
+            console.error("PERMISSÃO NEGADA. Redirecionando para /login...");
+            alert("Você não tem permissão para acessar esta página. Por favor, faça o login.");
+            window.location.href = '/login.html';
+        }else {
+            console.error("Erro ao buscar voluntários: ", error);
+            tableBody.innerHTML = '<tr><td colspan="6">Ocorreu um erro ao carregar os dados.</td></tr>';
+        }
+    }finally {
         submitButton.disabled = false;
         submitButton.textContent = 'Salvar Alterações';
     }

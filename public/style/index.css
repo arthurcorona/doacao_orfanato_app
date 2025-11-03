@@ -1,12 +1,13 @@
-/* --- ESTILOS GLOBAIS E RESET --- */
 :root {
-    --cor-primaria: #007bff; /* Azul primário para botões e links */
-    --cor-perigo: #dc3545;   /* Vermelho para botões de exclusão */
-    --cor-fundo: #f4f7f6;    /* Cinza bem claro para o fundo da página */
-    --cor-container: #ffffff; /* Branco para os containers de conteúdo */
-    --cor-texto: #333;      /* Cor principal do texto */
-    --cor-borda: #dee2e6;    /* Cinza claro para bordas */
-    --sombra: 0 2px 5px rgba(0,0,0,0.1); /* Sombra suave para os containers */
+    --cor-primaria: #0E2374;
+    --cor-primaria-hover: #0a1952;
+    --cor-fundo: #f8f9fa; 
+    --cor-container: #ffffff; 
+    --cor-texto: #333;
+    --cor-label: #555;
+    --cor-borda: #ced4da;
+    --cor-erro: #d9534f;
+    --sombra: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -20,307 +21,307 @@ body {
     background-color: var(--cor-fundo);
     color: var(--cor-texto);
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* --- ESTILO DA NAVEGAÇÃO (NAV) --- */
-/* Estilo base, ajuste conforme o seu nav.ejs */
-nav {
-    background-color: #343a40;
-    padding: 1rem 2rem;
-    color: white;
+main {
+    flex-grow: 1; 
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.site-header {
+    background-color: var(--cor-container);
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.site-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--sombra);
 }
-nav a {
-    color: white;
+
+.site-header .logo {
+    max-height: 100px;
+    width: auto;
+}
+
+.site-header nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.site-header nav a {
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    color: var(--cor-primaria);
+    font-weight: 500;
+    transition: opacity 0.2s ease;
 }
-nav a:hover {
-    background-color: #495057;
+.site-header nav a:hover {
+    opacity: 0.7;
 }
 
-
-/* --- CONTAINERS PRINCIPAIS --- */
-main, .form-container, .table-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
+.form-container {
+    max-width: 800px;
+    margin: 1.5rem auto;
     background-color: var(--cor-container);
     border-radius: 8px;
     box-shadow: var(--sombra);
+    padding: 2.5rem;
 }
 
-/* --- CABEÇALHOS E BUSCA --- */
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap; /* Para telas menores */
-}
-
-h1, h2 {
-    color: var(--cor-texto);
-}
-
-#searchInput {
-    padding: 0.75rem;
-    border: 1px solid var(--cor-borda);
-    border-radius: 5px;
-    width: 300px;
-}
-
-/* --- ESTILOS DE FORMULÁRIO --- */
 .form-container h2 {
     text-align: center;
+    color: var(--cor-primaria);
     margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.form-info {
+    text-align: center;
+    background-color: #fdfdfd;
+    border: 1px dashed var(--cor-borda);
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+.form-info p {
+    font-size: 0.95rem;
+    color: var(--cor-label);
 }
 
 fieldset {
-    border: 1px solid var(--cor-borda);
-    border-radius: 5px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    border: none; 
+    margin-bottom: 2rem;
+    padding: 0;
 }
 
 legend {
-    font-weight: bold;
-    padding: 0 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
     color: var(--cor-primaria);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--cor-primaria);
+    width: 100%;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.form-group-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
 }
 
 label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
+    color: var(--cor-label);
 }
 
+/* Campos de Input */
 input[type="text"],
 input[type="date"],
 input[type="tel"],
 input[type="email"],
+input[type="number"],
+select,
 textarea {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--cor-borda);
     border-radius: 5px;
     font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input:focus, textarea:focus {
+input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--cor-primaria);
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 5px rgba(14, 35, 116, 0.3);
 }
 
-/* --- BOTÕES --- */
-.submit-button, .delete-btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+textarea {
+    resize: vertical; 
+    min-height: 80px;
 }
 
-.submit-button {
-    background-color: var(--cor-primaria);
-    width: 100%;
-}
-.submit-button:hover {
-    background-color: #0056b3;
-}
-
-.delete-btn {
-    background-color: var(--cor-perigo);
-}
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-
-/* --- ESTILOS DE TABELA --- */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-
-th, td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--cor-borda);
-}
-
-thead th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
-
-tbody tr:hover {
-    background-color: #e9ecef;
-}
-
-.status-select {
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid var(--cor-borda);
-}
-
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    #searchInput {
-        width: 100%;
-        margin-top: 1rem;
-    }
-
-    /* Adiciona rolagem horizontal à tabela em telas pequenas */
-    .table-container {
-        overflow-x: auto;
-    }
-}
-
-/*nav ejs*/
-
-/* --- ESTILO DA NAVEGAÇÃO (NAV) --- */
-.header {
-    background-color: #343a40; /* Cinza escuro */
-    padding: 0 2rem; /* Espaçamento lateral */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 100%;
-}
-
-/* Container para alinhar o conteúdo */
-.header .container {
-    max-width: 1200px;
-    margin: 0 auto;
+.form-group-checkbox {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
 }
-
-.logo {
-    font-size: 1.5rem;
-    color: #ffffff;
+.form-group-checkbox input[type="checkbox"] {
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0.2em;
 }
-
-nav ul {
-    list-style: none; /* Remove as bolinhas da lista */
-    display: flex;
-    align-items: center;
-    gap: 1rem; /* Espaçamento entre os itens do menu */
+.form-group-checkbox label {
+    flex: 1;
+    margin-bottom: 0;
+    font-weight: normal;
 }
-
-nav ul li a {
-    color: #f8f9fa; /* Branco suave */
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.2s ease-in-out;
+.form-group-checkbox a {
+    color: var(--cor-primaria);
     font-weight: 500;
 }
 
-nav ul li a:hover {
-    background-color: #495057; /* Cinza um pouco mais claro no hover */
-}
-
-/* Estilo específico para o botão "Sair" */
-#logout-btn {
-    padding: 0.5rem 1rem;
+/* Botões */
+.submit-button {
+    width: 100%;
+    padding: 1rem;
     border: none;
     border-radius: 5px;
-    background-color: var(--cor-perigo); /* Usa a variável vermelha que já definimos */
+    background-color: var(--cor-primaria);
     color: white;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.submit-button:hover {
+    background-color: var(--cor-primaria-hover);
+    transform: translateY(-2px);
 }
 
-#logout-btn:hover {
-    background-color: #c82333; /* Vermelho mais escuro no hover */
-}
-
-
-/* --- Adicionando responsividade para a navegação --- */
-@media (max-width: 992px) {
-    .header .container {
-        flex-direction: column;
-        height: auto;
-        padding: 1rem 0;
-    }
-
-    nav ul {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 1rem;
-    }
-
-    nav ul li {
-        width: 100%;
-        text-align: center;
-    }
-
-    nav ul li a {
-        display: block; /* Faz o link ocupar toda a largura do <li> */
-    }
-}
-
-/* Adicione isto ao seu arquivo /style/index.css ou style/admin.css */
-
-/* Estilo para a nota no topo do formulário */
-.required-note {
-    font-size: 0.9em;
-    color: #d9534f; /* Um tom de vermelho */
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-/* Adiciona o asterisco vermelho após o texto do label */
-label.required::after {
-    content: ' *';
-    color: #d9534f; /* Vermelho */
-    font-weight: bold;
-    margin-left: 2px;
-}
-
-/* no seu style/index.css */
 .secondary-button {
-    background-color: #f4f4f4;
+    background-color: #f0f0f0;
     color: #333;
-    border: 1px solid #ccc;
-    padding: 10px 15px;
+    border: 1px solid var(--cor-borda);
+    padding: 0.7rem 1rem;
     cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
+    font-weight: 500;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s ease;
 }
 .secondary-button:hover {
     background-color: #e9e9e9;
 }
 
-/* Opcional: Adiciona um espaço entre os grupos de referência */
 .referencia-group {
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed #eee;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--cor-borda);
+}
+.referencia-group label {
+    font-size: 0.9rem;
+    color: var(--cor-label);
+}
+
+.required-note {
+    font-size: 0.9em;
+    color: var(--cor-erro);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+label.required::after {
+    content: ' *';
+    color: var(--cor-erro);
+    font-weight: bold;
+}
+
+.error-message {
+    color: var(--cor-erro);
+    font-size: 0.9em;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+#success-message {
+    text-align: center;
+    font-weight: bold;
+    color: #28a745;
+    background-color: #eaf6ec;
+    border: 1px solid #28a745;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1.5rem;
+}
+
+.site-footer {
+    background-color: #343a40; 
+    color: #f8f9fa; 
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+.site-footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.site-footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: #f8f9fa;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.2s ease;
+}
+.social-links a:hover {
+    opacity: 0.8;
+}
+.social-links i {
+    margin-right: 0.5rem;
+}
+
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 1.5rem;
+    }
+    
+    .form-container h2 {
+        font-size: 1.8rem;
+    }
+
+    legend {
+        font-size: 1.3rem;
+    }
+
+    .form-group-grid-2 {
+        grid-template-columns: 1fr; 
+        gap: 0;
+    }
+
+    .form-group-grid-2 .form-group {
+        margin-bottom: 1.25rem;
+    }
+    
+    .site-header .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .site-footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
 }
