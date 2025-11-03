@@ -43,8 +43,8 @@ Este projeto foi construído com uma arquitetura "serverless" (BaaS), com o fron
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/arthurcorona/doacao_orfanato_app.git](https://github.com/arthurcorona/doacao_orfanato_app.git)
-    cd doacao_orfanato_app
+    git clone [https://github.com/arthurcorona/sistema-voluntariado-ong.git](https://github.com/arthurcorona/sistema-voluntariado-ong.git)
+    cd sistema-voluntariado-ong
     ```
 
 2.  **Configure o Firebase:**
@@ -64,11 +64,6 @@ Este projeto foi construído com uma arquitetura "serverless" (BaaS), com o fron
           allow create: if true; // Permite o formulário público
           allow read, update, delete: if request.auth != null; // Protege o dashboard
         }
-        // Adicione regras para outras coleções (ex: acolitos)
-        match /acolitos/{acolitoId} {
-          allow create: if true;
-          allow read, update, delete: if request.auth != null;
-        }
       }
     }
     ```
@@ -80,16 +75,15 @@ Este projeto foi construído com uma arquitetura "serverless" (BaaS), com o fron
 
 5.  **Rode o servidor de teste local:**
     ```bash
-    firebase serve
+    firebase server
     ```
     O app estará rodando em `http://localhost:5000`.
 
 ---
 
-## 📷 Screenshots (Opcional, mas recomendado)
 
-[Cole aqui um screenshot do formulário de inscrição]
-[Cole aqui um screenshot do dashboard de admin]
+<img src='./public/assets/img01.png'>
+<img src='./public/assets/img02.png.png'>
 
 ---
 
