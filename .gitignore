@@ -6,6 +6,7 @@ firebase-debug.log
 .firebaserc
 
 .env
+/functions/.env.rede-alsa-2ff28 
 
 npm-debug.log
 .DS_Store

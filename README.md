@@ -90,5 +90,5 @@ Este projeto foi construído com uma arquitetura "serverless" (BaaS), com o fron
 ## 👨‍💻 Autor
 
 * **Arthur Corona**
-* [LinkedIn](https://www.linkedin.com/in/arthur-corona-pimentel-32a155216/)
+* [LinkedIn](https://www.linkedin.com/in/arthur-corona-32a155216/)
 * [GitHub](https://github.com/arthurcorona)
